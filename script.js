@@ -23,5 +23,3 @@ const query = async (searchedQuery) => {
         console.log(error);
     }
 }
-
-// query();
