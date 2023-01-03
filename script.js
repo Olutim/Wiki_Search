@@ -8,18 +8,41 @@ searchedQuery.addEventListener('input', function(event) {
 });
 
 // Consuming Wikipedia Search API
-const query = async (searchedQuery) => {
-    try{
-        const initiateGetRequest = `https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchedQuery}`;
-        const response = await fetch(initiateGetRequest);
-        const getRequest = await response.json();
-        console.log({
-            'term': searchedQuery,
-            'results': getRequest.query.search
-        });
+// const query = async (searchedQuery) => {
+//     try{
+//         const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchedQuery}`);
+//         const getRequest = await response.json();
+//         console.log({
+//             'term': searchedQuery,
+//             'results': getRequest.query.search
+//         });
 
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+// }
+
+let timerIndicator;
+
+const query = (searchedQuery) => {
+    
+    if(timerIndicator){
+        clearTimeout(timerIndicator);
     }
-    catch(error){
-        console.log(error);
-    }
+
+    timerIndicator = setTimeout(async () => {
+        try{
+            const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchedQuery}`);
+            const getRequest = await response.json();
+            console.log({
+                'term': searchedQuery,
+                'results': getRequest.query.search
+            });
+
+        }
+        catch(error){
+            console.log(error);
+        }
+    }, 500)
 }
