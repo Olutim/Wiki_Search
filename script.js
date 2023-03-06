@@ -1,5 +1,5 @@
 const searchedQuery = document.querySelector('#searchedQuery');
-const resultCollections = document.querySelector('resultCollections');
+const resultCollections = document.querySelector('#resultCollections');
 
 searchedQuery.select();
 
@@ -17,7 +17,7 @@ const query = (searchedQuery) => {
 
     timerIndicator = setTimeout(async () => {
         try{
-            const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=10&srsearch=${searchedQuery}`);
+            const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&prop=info|extracts&inprop=url&utf8=&format=json&origin=*&srlimit=15&srsearch=${searchedQuery}`);
             const getRequest = await response.json();
             const searchResulttHtml = createHTML(getRequest.query.search, searchedQuery);
             resultCollections.innerHTML = searchResulttHtml;
